@@ -10,7 +10,7 @@ import subprocess
 import time
 
 # Initialize serial communication with the UGV
-ser = serial.Serial('/dev/ttyAMA0', 115200, timeout=1)
+ser = serial.Serial('/dev/serial0', 115200, timeout=1)
 
 class UgvDriver(Node):
     def __init__(self, name):

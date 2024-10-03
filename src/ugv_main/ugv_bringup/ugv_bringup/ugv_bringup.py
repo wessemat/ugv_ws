@@ -58,6 +58,7 @@ class BaseController:
             line = self.rl.readline().decode('utf-8')  # Read line from UART
             self.data_buffer = json.loads(line)  # Parse JSON data
             self.base_data = self.data_buffer  # Store received data
+
             return self.base_data  # Return base data
         except json.JSONDecodeError as e:
             self.logger.error(f"JSON decode error: {e} with line: {line}")  # Log error
@@ -96,7 +97,7 @@ class ugv_bringup(Node):
         self.odom_publisher_ = self.create_publisher(Float32MultiArray, "odom/odom_raw", 100)
         self.voltage_publisher_ = self.create_publisher(Float32, "voltage", 50)
         # Initialize the base controller with the UART port and baud rate
-        self.base_controller = BaseController('/dev/ttyAMA0', 115200)
+        self.base_controller = BaseController('/dev/serial0', 115200)
         # Timer to periodically execute the feedback loop
         self.feedback_timer = self.create_timer(0.001, self.feedback_loop)
 
